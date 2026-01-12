@@ -1,0 +1,22 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "2f586b46-c2b5-4538-8bf2-6c6f11619b0d",
+        "clusterUri": "",
+        "type": "Fabric",
+        "databaseItemId": "d18beaac-c18d-b900-4d44-bdb99c1816fe",
+        "databaseItemName": "eh_dp700"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "ee7494eb-f832-4abc-a2ec-ab6d1d6f3e58",
+        "content": "e006_raw_message\n| \ne006_tumbling_window\n| order by Window_End_Time\n\ne006_hopping_window\n| order  by Window_End_Time\n\ne006_sliding_window\n| order by Window_End_Time\n\ne006_session_window\n| order by Window_End_Time\n\ne006_snapshot_window\n| order by Window_End_Time",
+        "title": "Tab",
+        "dataSourceId": "2f586b46-c2b5-4538-8bf2-6c6f11619b0d"
+      }
+    ]
+  }
+}

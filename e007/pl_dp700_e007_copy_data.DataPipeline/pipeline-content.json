@@ -1,0 +1,228 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Copy data1",
+        "type": "Copy",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "source": {
+            "type": "DelimitedTextSource",
+            "storeSettings": {
+              "type": "LakehouseReadSettings",
+              "recursive": true,
+              "enablePartitionDiscovery": false
+            },
+            "formatSettings": {
+              "type": "DelimitedTextReadSettings"
+            },
+            "datasetSettings": {
+              "annotations": [],
+              "linkedService": {
+                "name": "lh_dp700",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "3e2204cc-b967-485c-bf55-8dfa0134abad",
+                    "artifactId": "d1e02103-b302-434c-989c-0c63e9f193e1",
+                    "rootFolder": "Files"
+                  }
+                }
+              },
+              "type": "DelimitedText",
+              "typeProperties": {
+                "location": {
+                  "type": "LakehouseLocation",
+                  "fileName": {
+                    "value": "@pipeline().parameters.file_name",
+                    "type": "Expression"
+                  },
+                  "folderPath": "dp700_e007"
+                },
+                "columnDelimiter": ",",
+                "escapeChar": "\\",
+                "firstRowAsHeader": true,
+                "quoteChar": "\""
+              },
+              "schema": []
+            }
+          },
+          "sink": {
+            "type": "LakehouseTableSink",
+            "tableActionOption": "OverwriteSchema",
+            "partitionOption": "None",
+            "applyVOrder": true,
+            "datasetSettings": {
+              "annotations": [],
+              "linkedService": {
+                "name": "lh_dp700",
+                "properties": {
+                  "annotations": [],
+                  "type": "Lakehouse",
+                  "typeProperties": {
+                    "workspaceId": "3e2204cc-b967-485c-bf55-8dfa0134abad",
+                    "artifactId": "d1e02103-b302-434c-989c-0c63e9f193e1",
+                    "rootFolder": "Tables"
+                  }
+                }
+              },
+              "type": "LakehouseTable",
+              "schema": [],
+              "typeProperties": {
+                "schema": "dp700_e007",
+                "table": {
+                  "value": "@pipeline().parameters.table_name",
+                  "type": "Expression"
+                }
+              }
+            }
+          },
+          "enableStaging": false,
+          "translator": {
+            "type": "TabularTranslator",
+            "mappings": [
+              {
+                "source": {
+                  "name": "FILM",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "FILM",
+                  "physicalType": "string"
+                }
+              },
+              {
+                "source": {
+                  "name": "YEAR",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "YEAR",
+                  "physicalType": "integer"
+                }
+              },
+              {
+                "source": {
+                  "name": "RATING",
+                  "type": "String",
+                  "physicalType": "String"
+                },
+                "sink": {
+                  "name": "RATING",
+                  "physicalType": "double"
+                }
+              }
+            ],
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          }
+        }
+      },
+      {
+        "name": "Wait1",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Copy data1",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 1
+        }
+      },
+      {
+        "name": "Wait1_copy1",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Wait1",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 1
+        }
+      },
+      {
+        "name": "Wait1_copy2",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Wait1",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 1
+        }
+      },
+      {
+        "name": "Wait1_copy1_copy1",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Wait1_copy1",
+            "dependencyConditions": [
+              "Skipped"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 1
+        }
+      },
+      {
+        "name": "Wait1_copy2_copy1",
+        "type": "Wait",
+        "dependsOn": [
+          {
+            "activity": "Copy data1",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "waitTimeInSeconds": 1
+        }
+      }
+    ],
+    "parameters": {
+      "file_name": {
+        "type": "string",
+        "defaultValue": "movies.csv"
+      },
+      "table_name": {
+        "type": "string"
+      }
+    },
+    "variables": {
+      "abc": {
+        "type": "String",
+        "defaultValue": "123"
+      }
+    }
+  }
+}

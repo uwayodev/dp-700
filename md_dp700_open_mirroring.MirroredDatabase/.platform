@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "MirroredDatabase",
+    "displayName": "md_dp700_open_mirroring"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "57fc3ed5-1de7-80d9-4759-bc44843c4d5e"
+  }
+}

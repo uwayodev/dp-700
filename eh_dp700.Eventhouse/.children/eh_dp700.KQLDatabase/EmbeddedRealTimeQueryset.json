@@ -1,0 +1,34 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "380b307a-f42e-4b5a-80e9-03685537abff",
+        "clusterUri": "https://trd-76ju6cxzh1xa871a48.z3.kusto.fabric.microsoft.com",
+        "type": "Fabric",
+        "databaseItemId": "9c1816fe-bdb9-4d44-b900-c18dd18beaac",
+        "databaseItemName": "eh_dp700"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "949e565a-7117-4375-aa2c-638376825456",
+        "content": "assignments\n\ndepartments\n\nemployees\n\nprojects\n\nemployees\n| where salary >= 75000\n| project name, salary, salary_string = strcat(\"$ \", salary)\n\nemployees\n| join kind=leftouter departments on department_id\n| project name, department_id, department_name\n\nemployees\n| join kind=leftouter departments on department_id\n| summarize number_of_employees = count() by department_name",
+        "title": "",
+        "dataSourceId": "380b307a-f42e-4b5a-80e9-03685537abff"
+      },
+      {
+        "id": "a2cd13cc-aac2-426d-ad67-9054e5441d15",
+        "content": "// Use 'take' to view a sample number of records in the table and check the data.\ne005_temperature\n| where country =='RWANDA'\n| sort  by  timestamp desc \n",
+        "title": "",
+        "dataSourceId": "380b307a-f42e-4b5a-80e9-03685537abff"
+      },
+      {
+        "id": "0602af7f-b11a-49d2-8eec-399cf5a0e26e",
+        "content": "// Create website visits table\n.create table e015_website_visits (\n    visit_id: string,\n    visit_timestamp: datetime,\n    page: string\n)\n\n// Ingest initial website visits with timestamps\n.ingest inline into table e015_website_visits with (format='csv') <|\n\"v001\",\"2026-01-10T09:15:00Z\",\"Home\"\n\"v002\",\"2026-01-10T11:30:00Z\",\"Contact\"\n\"v003\",\"2026-01-10T14:45:00Z\",\"Home\"\n\"v004\",\"2026-01-03T08:05:00Z\",\"Pricing\"\n\"v005\",\"2026-01-03T20:10:00Z\",\"Blog\"\n\n// Query table contents\ne015_website_visits\n| order by visit_timestamp asc\n\n// Create materialized view WITHOUT backfill\n.create async materialized-view with (\n    docString = \"Daily website visits without backfill\"\n) e015_mv_daily_visits_no_backfill\non table e015_website_visits\n{\n    e015_website_visits\n    | extend visit_day = bin(visit_timestamp, 1d)\n    | summarize visit_count = count() by visit_day\n}\n\n// Query the materialized view without backfill\ne015_mv_daily_visits_no_backfill\n| order by visit_day asc\n\n// Create materialized view WITH backfill\n.create async materialized-view with (\n    backfill = true,\n    effectiveDateTime = datetime(2026-01-01T00:00:00Z),\n    docString = \"Daily website visits with backfill\"\n) e015_mv_daily_visits_with_backfill\non table e015_website_visits\n{\n    e015_website_visits\n    | extend visit_day = bin(visit_timestamp, 1d)\n    | summarize visit_count = count() by visit_day\n}\n\n// Query the materialized view with backfill\ne015_mv_daily_visits_with_backfill\n| order by visit_day asc\n\n// Show materialized views in the database\n.show materialized-views\n\n// Ingest new website visits\n.ingest inline into table e015_website_visits with (format='csv') <|\n\"v006\",\"2026-01-04T10:10:00Z\",\"Home\"\n\"v007\",\"2026-01-04T12:30:00Z\",\"Contact\"\n\n// Query table contents again\ne015_website_visits\n| order by visit_timestamp asc\n\n// Query materialized view without backfill after new ingestions\ne015_mv_daily_visits_no_backfill\n| order by visit_day asc\n\n// Query materialized view with backfill after new ingestions\ne015_mv_daily_visits_with_backfill\n| order by visit_day asc\n\n\n// Create a simple function to get website visits for a given page\n.create-or-alter function get_daily_visits_per_page(pageName:string)\n{\n    e015_website_visits\n    | where page == pageName\n    | extend visit_day = bin(visit_timestamp, 1d)\n    | summarize visit_count = count() by visit_day\n}\n\n// Query the function to see visits to the 'Home' page\nget_daily_visits_per_page(\"Home\")\n| order by visit_day asc\n\n// Query the function to see visits to the 'Blog' page\nget_daily_visits_per_page(\"Blog\")\n| order by visit_day asc\n\n\n\n// Drop old materialized views and table if they exist\n//.drop materialized-view e015_mv_daily_visits_no_backfill ifexists\n\n//.drop materialized-view e015_mv_daily_visits_with_backfill ifexists\n\n//.drop table e015_website_visits ifexists\n\n//.drop function get_daily_visits_per_page ifexists",
+        "title": "",
+        "dataSourceId": "380b307a-f42e-4b5a-80e9-03685537abff"
+      }
+    ]
+  }
+}

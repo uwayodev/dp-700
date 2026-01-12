@@ -1,0 +1,14 @@
+[
+  {
+    "name": "temp",
+    "path": "/Files/dp700_e012",
+    "target": {
+      "type": "AdlsGen2",
+      "adlsGen2": {
+        "connectionId": "e6538580-ebf9-47a0-8039-5b693e5b3227",
+        "location": "https://datalakeuwayo.dfs.core.windows.net",
+        "subpath": "/temp"
+      }
+    }
+  }
+]

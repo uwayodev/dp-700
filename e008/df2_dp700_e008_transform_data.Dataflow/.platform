@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "df2_dp700_e008_transform_data"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "93fbb0bd-354f-ae4d-44f5-2cdcc44a2774"
+  }
+}

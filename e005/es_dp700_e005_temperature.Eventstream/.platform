@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventstream",
+    "displayName": "es_dp700_e005_temperature"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2340b51f-8f4a-a4f5-48ab-40798386f94d"
+  }
+}

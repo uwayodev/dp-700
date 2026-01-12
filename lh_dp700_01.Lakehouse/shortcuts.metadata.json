@@ -1,0 +1,14 @@
+[
+  {
+    "name": "temp",
+    "path": "/Files",
+    "target": {
+      "type": "AdlsGen2",
+      "adlsGen2": {
+        "connectionId": "8d71e16f-64f9-4dcd-90b2-45e680c6cbd0",
+        "location": "https://apfabricadlsdev.dfs.core.windows.net",
+        "subpath": "/landing/temp"
+      }
+    }
+  }
+]

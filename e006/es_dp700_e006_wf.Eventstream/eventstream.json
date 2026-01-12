@@ -1,0 +1,600 @@
+{
+  "sources": [
+    {
+      "id": "016fb93e-7c48-46e1-91e9-d6c5d4ac7f1f",
+      "name": "cp-messages",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "18def9fe-09ba-4207-a073-bf211512b5f1",
+      "name": "e006-session-window",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "d18beaac-c18d-b900-4d44-bdb99c1816fe",
+        "databaseName": "eh_dp700",
+        "tableName": "e006_session_window",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "GroupBy_SessionWindow"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "GroupBy_SessionWindow",
+          "schema": {
+            "columns": [
+              {
+                "name": "count",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "Window_End_Time",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "26d20152-6a05-4ce0-9605-f926b73b2714",
+      "name": "e006-sliding-window",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "d18beaac-c18d-b900-4d44-bdb99c1816fe",
+        "databaseName": "eh_dp700",
+        "tableName": "e006_sliding_window",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "GroupBy_SlidingWindow"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "GroupBy_SlidingWindow",
+          "schema": {
+            "columns": [
+              {
+                "name": "count",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "Window_End_Time",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "484a50f1-4022-4bee-b28e-34be814d2535",
+      "name": "e006-raw-message",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "d18beaac-c18d-b900-4d44-bdb99c1816fe",
+        "databaseName": "eh_dp700",
+        "tableName": "e006_raw_message",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "esdp700e006wf-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "esdp700e006wf-stream",
+          "schema": {
+            "columns": [
+              {
+                "name": "timestamp",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message_id",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "6de637e5-33a1-43fa-910f-ce1270f80279",
+      "name": "e006-hopping-window",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "d18beaac-c18d-b900-4d44-bdb99c1816fe",
+        "databaseName": "eh_dp700",
+        "tableName": "e006_hopping_window",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "GroupBy_HoppingWindow"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "GroupBy_HoppingWindow",
+          "schema": {
+            "columns": [
+              {
+                "name": "count",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "Window_End_Time",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "75d4f18b-1a29-49e2-acfc-c0e46035d3db",
+      "name": "e006-snapshot-window",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "d18beaac-c18d-b900-4d44-bdb99c1816fe",
+        "databaseName": "eh_dp700",
+        "tableName": "e006_snapshot_window",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "GroupBy_SnapshopWindow"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "GroupBy_SnapshopWindow",
+          "schema": {
+            "columns": [
+              {
+                "name": "count",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "Window_End_Time",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "b2d30e60-cb49-4564-a654-1f7abaf57abb",
+      "name": "e006-tumbling-window",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "d18beaac-c18d-b900-4d44-bdb99c1816fe",
+        "databaseName": "eh_dp700",
+        "tableName": "e006_tumbling_window",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "GroupBy_TumblingWindow"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "GroupBy_TumblingWindow",
+          "schema": {
+            "columns": [
+              {
+                "name": "count",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "Window_End_Time",
+                "type": "DateTime",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "ac3b64bf-5881-4906-b59a-6ae4dc87cd81",
+      "name": "esdp700e006wf-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "cp-messages"
+        }
+      ]
+    }
+  ],
+  "operators": [
+    {
+      "name": "GroupBy_HoppingWindow",
+      "type": "GroupBy",
+      "inputNodes": [
+        {
+          "name": "esdp700e006wf-stream"
+        }
+      ],
+      "properties": {
+        "aggregations": [
+          {
+            "aggregateFunction": "Count",
+            "arguments": [],
+            "column": {
+              "expressionType": "Wildcard"
+            },
+            "alias": "count"
+          }
+        ],
+        "groupBy": [],
+        "window": {
+          "type": "Hopping",
+          "properties": {
+            "hopSize": {
+              "value": 5,
+              "unit": "Second"
+            },
+            "duration": {
+              "value": 10,
+              "unit": "Second"
+            },
+            "offset": {
+              "value": 0,
+              "unit": "Second"
+            }
+          }
+        }
+      },
+      "inputSchemas": [
+        {
+          "name": "esdp700e006wf-stream",
+          "schema": {
+            "columns": [
+              {
+                "name": "timestamp",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message_id",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GroupBy_SessionWindow",
+      "type": "GroupBy",
+      "inputNodes": [
+        {
+          "name": "esdp700e006wf-stream"
+        }
+      ],
+      "properties": {
+        "aggregations": [
+          {
+            "aggregateFunction": "Count",
+            "arguments": [],
+            "column": {
+              "expressionType": "Wildcard"
+            },
+            "alias": "count"
+          }
+        ],
+        "groupBy": [],
+        "window": {
+          "type": "Session",
+          "properties": {
+            "maxDuration": {
+              "value": 10,
+              "unit": "Second"
+            },
+            "timeout": {
+              "value": 5,
+              "unit": "Second"
+            },
+            "partitionBy": null
+          }
+        }
+      },
+      "inputSchemas": [
+        {
+          "name": "esdp700e006wf-stream",
+          "schema": {
+            "columns": [
+              {
+                "name": "timestamp",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message_id",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GroupBy_SlidingWindow",
+      "type": "GroupBy",
+      "inputNodes": [
+        {
+          "name": "esdp700e006wf-stream"
+        }
+      ],
+      "properties": {
+        "aggregations": [
+          {
+            "aggregateFunction": "Count",
+            "arguments": [],
+            "column": {
+              "expressionType": "Wildcard"
+            },
+            "alias": "count"
+          }
+        ],
+        "groupBy": [],
+        "window": {
+          "type": "Sliding",
+          "properties": {
+            "duration": {
+              "value": 5,
+              "unit": "Second"
+            }
+          }
+        }
+      },
+      "inputSchemas": [
+        {
+          "name": "esdp700e006wf-stream",
+          "schema": {
+            "columns": [
+              {
+                "name": "timestamp",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message_id",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GroupBy_SnapshopWindow",
+      "type": "GroupBy",
+      "inputNodes": [
+        {
+          "name": "esdp700e006wf-stream"
+        }
+      ],
+      "properties": {
+        "aggregations": [
+          {
+            "aggregateFunction": "Count",
+            "arguments": [],
+            "column": {
+              "expressionType": "Wildcard"
+            },
+            "alias": "count"
+          }
+        ],
+        "groupBy": [],
+        "window": {
+          "type": "Snapshot",
+          "properties": {}
+        }
+      },
+      "inputSchemas": [
+        {
+          "name": "esdp700e006wf-stream",
+          "schema": {
+            "columns": [
+              {
+                "name": "timestamp",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message_id",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GroupBy_TumblingWindow",
+      "type": "GroupBy",
+      "inputNodes": [
+        {
+          "name": "esdp700e006wf-stream"
+        }
+      ],
+      "properties": {
+        "aggregations": [
+          {
+            "aggregateFunction": "Count",
+            "arguments": [],
+            "column": {
+              "expressionType": "Wildcard"
+            },
+            "alias": "count"
+          }
+        ],
+        "groupBy": [],
+        "window": {
+          "type": "Tumbling",
+          "properties": {
+            "duration": {
+              "value": 10,
+              "unit": "Second"
+            },
+            "offset": {
+              "value": 0,
+              "unit": "Second"
+            }
+          }
+        }
+      },
+      "inputSchemas": [
+        {
+          "name": "esdp700e006wf-stream",
+          "schema": {
+            "columns": [
+              {
+                "name": "timestamp",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "message_id",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "compatibilityLevel": "1.1"
+}
